@@ -1,0 +1,6 @@
+/* flexbox mixin */
+@mixin flex($main:center, $cross:center) {
+	display: flex;
+	justify-content: $main;
+	align-items: $cross;
+}
