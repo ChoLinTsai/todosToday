@@ -1,0 +1,50 @@
+
+$iconColor: #f4f4f4;
+
+.sidebarStyle {
+  @include wh('max');
+  background: #81d4fa;
+  display: grid;
+  grid-template-columns:
+    [c1] 150px [c2];
+  grid-template-rows:
+    [r1] 150px [r2] 400px [r3] 150px [r4];
+  .sidebarFace {
+    @include wh('normal', 100px, 100px);
+    @include bgimg('./img/gal.jpg', no-repeat, center, top);
+    @include gridItemPosition();
+    border-radius: 50%;
+    box-shadow: 0px 5px 10px rgba(#333333, 0.35);
+  }
+
+  .sidebarBody {
+    @include wh('max');
+    display: grid;
+    grid-template-columns:
+      [c1] 150px [c2];
+    grid-template-rows:
+      [r1] 100px [r2] 100px [r3] 100px
+      [r4] 1fr [r5];
+    color: $iconColor;
+
+    & > * {
+      @include gridItemPosition();
+    }
+
+  }
+
+
+  .sidebarFooter {
+    @include wh('max');
+    display: grid;
+    grid-template-columns:
+      [c1] 150px [c2];
+    grid-template-rows:
+      [r1] 1fr [r2];
+    color: $iconColor;
+
+    & > * {
+      @include gridItemPosition();
+    }
+  }
+}

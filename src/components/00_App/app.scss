@@ -1,5 +1,11 @@
 .mainStyle {
-  width: 1600px;
-  height: 900px;
+  width: 1300px;
+  height: 700px;
   background: mistyrose;
+  display: grid;
+  grid-template-columns:
+    [c1] 150px [c2] 450px [c3] 1fr [c4];
+  grid-template-rows:
+    [r1] 1fr [r2];
+  box-shadow: 5px 5px 50px 5px rgba(#585555, 0.5);
 }

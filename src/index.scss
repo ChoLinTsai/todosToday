@@ -13,3 +13,8 @@
   );
   @include flex;
 }
+
+a {
+  list-style: none;
+  text-decoration: none;
+}

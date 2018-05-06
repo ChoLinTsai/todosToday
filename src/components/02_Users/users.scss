@@ -1,0 +1,23 @@
+.usersPanel {
+  @include wh('max');
+  background: white;
+  display: grid;
+  overflow-y: scroll;
+
+  .userInfo {
+    @include wh('max');
+    background: #fdfdfd;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(30, 150px);
+
+    .userDetail {
+      @include wh('max', 100%, 150px);
+      background: mistyrose;
+      padding: 1em;
+      display: grid;
+
+    }
+  }
+
+}
