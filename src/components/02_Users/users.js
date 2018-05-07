@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import style from './users.scss';
+import { Button, Icon } from 'react-materialize'
 
 export default class Users extends Component {
 
@@ -36,22 +37,32 @@ export default class Users extends Component {
 
   }
 
+
+
   render() {
 
     console.log(this.state.userInfo);
 
-    const getUserIdArry = this.state.userInfo.map( data => data.keyId )
+    const getUserIdAry = this.state.userInfo.map( data => data.keyId )
 
     const getUserInfo = this.state.userInfo.map( info => {
 
-      return <li key={info.keyId}
-                 className={style.userDetail}>
+      return  <li key={info.keyId}
+                  className={style.userDetail}>
 
-                 <div className={style.upperDetail}>
-                   <h2>{getUserIdArry.indexOf(info.keyId) + 1}</h2>
-                   <p className={style.userName}>{info.userId}</p>
-                   <button className={style.details}>Details</button>
-                 </div>
+                <div className={style.upperDetail}>
+                <h2>{getUserIdAry.indexOf(info.keyId) + 1}</h2>
+                <p className={style.userName}>{info.userId}</p>
+                <Button
+                  waves='light'
+                  className={style.details}
+                  onClick={() => console.log(info.userId)}>
+
+                  Details
+
+                </Button>
+
+                </div>
 
              </li>
     })
