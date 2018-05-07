@@ -13,52 +13,53 @@ export default class Users extends Component {
 
   componentDidMount() {
 
-    this.fetchData()
+    this.fetchGithubUsers()
 
   }
 
-  fetchData() {
+  fetchGithubUsers() {
 
     fetch('https://api.github.com/users')
     .then(res => res.json())
-    .then(data => data.map( data => (
-      {
-
+    .then(data => data.map( data => ({
         keyId: data.id,
         userId: data.login,
-        githubUrl: data.html_url,
-        repos: data.public_repos,
-        gists: data.public_gists,
-
-      }
-    )))
-    .then(userInfo => this.setState({
-      userInfo
-    }))
-    .catch(err => console.log(`We got : ${err}`))
-
-
+        userUrl: data.url
+      })
+    ))
+    .then( userInfo =>
+      this.setState({
+        userInfo
+      })
+    )
+    .catch(err => console.log(`We got errors : ${err}`))
 
   }
 
-
   render() {
 
+    console.log(this.state.userInfo);
+
+    const getUserIdArry = this.state.userInfo.map( data => data.keyId )
+
     const getUserInfo = this.state.userInfo.map( info => {
+
       return <li key={info.keyId}
                  className={style.userDetail}>
-              {info.userId}
+
+                 <div className={style.upperDetail}>
+                   <h2>{getUserIdArry.indexOf(info.keyId) + 1}</h2>
+                   <p className={style.userName}>{info.userId}</p>
+                   <button className={style.details}>Details</button>
+                 </div>
+
              </li>
     })
 
     return (
       <section className={style.usersPanel}>
         <ul className={style.userInfo}>
-          <a href="#" className={style.userDetail}>
-            <li>
-              test
-            </li>
-          </a>
+          {getUserInfo}
         </ul>
       </section>
     )
