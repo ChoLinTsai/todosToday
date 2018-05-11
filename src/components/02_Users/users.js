@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import style from './users.scss';
-import { Button, Icon } from 'react-materialize'
+import { Button } from 'react-materialize';
+import Dashboard from '../03_Dashboard/dashboard';
 
 export default class Users extends Component {
 
@@ -14,9 +15,12 @@ export default class Users extends Component {
 
   componentDidMount() {
 
-    this.fetchGithubUsers()
+    this.fetchGithubUsers();
 
   }
+
+
+
 
   fetchGithubUsers() {
 
@@ -24,7 +28,7 @@ export default class Users extends Component {
     .then(res => res.json())
     .then(data => data.map( data => ({
         keyId: data.id,
-        userId: data.login,
+        userLogin: data.login,
         userUrl: data.url
       })
     ))
@@ -37,34 +41,35 @@ export default class Users extends Component {
 
   }
 
+  onClickUser(userUrl, userLogin) {
+    this.props.clickEvent(userUrl, userLogin);
+  }
 
 
   render() {
 
-    console.log(this.state.userInfo);
-
     const getUserIdAry = this.state.userInfo.map( data => data.keyId )
-
     const getUserInfo = this.state.userInfo.map( info => {
 
       return  <li key={info.keyId}
                   className={style.userDetail}>
 
                 <div className={style.upperDetail}>
-                <h2>{getUserIdAry.indexOf(info.keyId) + 1}</h2>
-                <p className={style.userName}>{info.userId}</p>
-                <Button
-                  waves='light'
-                  className={style.details}
-                  onClick={() => console.log(info.userId)}>
 
-                  Details
+                  <h2>{getUserIdAry.indexOf(info.keyId) + 1}</h2>
+                  <p className={style.userName}>{info.userLogin}</p>
+                  <Button
+                    waves='light'
+                    className={style.details}
+                    onClick={() => this.onClickUser(info.userUrl, info.userLogin)}>
 
-                </Button>
+                    Details
+                  </Button>
 
                 </div>
 
              </li>
+
     })
 
     return (
