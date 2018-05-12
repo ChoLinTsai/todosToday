@@ -1,0 +1,61 @@
+.usersPanel {
+  @include wh('max');
+  background: white;
+  display: grid;
+  overflow-y: scroll;
+
+  .userInfo {
+    @include wh('max');
+    background: #fdfdfd;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(30, 150px);
+
+    .userDetail {
+      @include wh('max', 100%, 150px);
+      background: #fdfdfd;
+      display: grid;
+      grid-template-columns:
+        [c1] 1fr [c2];
+      grid-template-rows:
+        [r1] 1fr [r2];
+      border-bottom: 0.5px solid #c7c7c7;
+
+      .upperDetail {
+        @include gridCR(1,2,1,2);
+        display: grid;
+        grid-template-columns:
+          [c1] 100px [c2] 1fr [c3] 150px [c4];
+        grid-template-rows:
+          [r1] 1fr [r2];
+
+        h2 {
+          font-size: 3em;
+          @include gridCR(1,2,1,2);
+          @include gridItemPosition;
+        }
+
+        .userName {
+          font-size: 2em;
+          @include gridCR(2,3,1,2);
+          @include gridItemPosition;
+        }
+
+        .details {
+          padding: 0;
+          width: 100px;
+          height: 35px;
+          font-size: 0.5em;
+          background: #25A69A;
+          color: #fdfdfd;
+          @include gridCR(3,4,1,2);
+          @include gridItemPosition;
+          @include flex;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+}

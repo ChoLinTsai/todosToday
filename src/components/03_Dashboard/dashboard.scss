@@ -1,0 +1,130 @@
+$TextColor: #fafafa;
+
+.dashboardPanel {
+  padding: 1rem;
+  background: #f5f5f5;
+
+  div {
+    @include wh;
+    display: grid;
+    grid-template-columns:
+      [c1] 1fr [c2];
+    grid-template-rows:
+      [r1] 200px [r2] 50px [r3] 100px
+      [r4] 1fr [r5];
+
+    .userUpper {
+      @include gridCR(1,2,1,2);
+      display: grid;
+      grid-template-columns:
+        [c1] 200px [c2] 1fr [c3];
+      grid-template-rows:
+        [r1] 200px [r2];
+
+      .userPic {
+        @include wh('normal', 200px, 200px);
+        @include gridCR(1,2,1,2);
+        box-shadow: 2px 2px 10px #333;
+      }
+
+      .userInfo {
+        @include gridCR(2,3,1,2);
+        padding-left: 1rem;
+        display: grid;
+        grid-template-columns:
+          [c1] 1fr [c2];
+        grid-template-rows:
+          [r1] 1fr [r2] 1fr [r3] 1fr [r4];
+
+        .userName {
+          @include gridItemPosition(left);
+          font-size: 2.5rem;
+        }
+
+        .userId {
+          @include gridItemPosition(left, top);
+          font-size: 2rem;
+        }
+
+        .location {
+          display: grid;
+          grid-template-columns:
+            [c1] 50px [c2] 1fr [c3];
+          grid-template-rows:
+            [r1] 1fr [r2];
+
+          .locationIcon {
+            @include gridCR(1,2,1,2);
+            @include gridItemPosition;
+          }
+
+          .userLocation {
+            @include gridCR(2,3,1,2);
+            @include gridItemPosition(left);
+            font-size: 1.5rem;
+          }
+        }
+      }
+
+    }
+
+    .githubInfo {
+      @include gridCR(1,2,3,4);
+      display: grid;
+      grid-template-columns:
+        [c1] 1fr [c2] 1fr [c3] 1fr [c4];
+      grid-template-rows:
+        [r1] 1fr [r2];
+
+      .followersPanel {
+        @include wh;
+        @include gridCR(1,2,1,2);
+        background: #FFB6B9;
+        display: grid;
+        grid-template-columns:
+          [c1] 1fr [c2];
+        grid-template-rows:
+          [r1] 30px [r2] 1fr [r3];
+      }
+
+      .reposPanel {
+        @include wh;
+        @include gridCR(2,3,1,2);
+        background: #ffa726;
+        display: grid;
+        grid-template-columns:
+          [c1] 1fr [c2];
+        grid-template-rows:
+          [r1] 30px [r2] 1fr [r3];
+
+      }
+
+      .gistsPanel {
+        @include wh;
+        @include gridCR(3,4,1,2);
+        background: #43a047;
+        display: grid;
+        grid-template-columns:
+          [c1] 1fr [c2];
+        grid-template-rows:
+          [r1] 30px [r2] 1fr [r3];
+      }
+    }
+  }
+}
+
+.infoText {
+  @include wh;
+  @include gridCR(1,2,1,2);
+  @include gridItemPosition(left);
+  padding-left: 0.5rem;
+  color: $TextColor;
+  font-size: 1rem;
+}
+
+.infoNum {
+  @include gridCR(1,2,2,3);
+  @include gridItemPosition(center, center);
+  color: $TextColor;
+  font-size: 2.5rem;
+}
