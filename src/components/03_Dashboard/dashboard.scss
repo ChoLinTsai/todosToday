@@ -85,23 +85,46 @@ $TextColor: #fafafa;
           [c1] 1fr [c2];
         grid-template-rows:
           [r1] 30px [r2] 1fr [r3];
+      }
 
-        .followersText {
-          @include wh;
-          @include gridCR(1,2,1,2);
-          @include gridItemPosition(left);
-          padding-left: 0.5rem;
-          color: $TextColor;
-          font-size: 1rem;
-        }
+      .reposPanel {
+        @include wh;
+        @include gridCR(2,3,1,2);
+        background: #ffa726;
+        display: grid;
+        grid-template-columns:
+          [c1] 1fr [c2];
+        grid-template-rows:
+          [r1] 30px [r2] 1fr [r3];
 
-        .followersNum {
-          @include gridCR(1,2,2,3);
-          @include gridItemPosition(center, center);
-          color: $TextColor;
-          font-size: 2.5rem;
-        }
+      }
+
+      .gistsPanel {
+        @include wh;
+        @include gridCR(3,4,1,2);
+        background: #43a047;
+        display: grid;
+        grid-template-columns:
+          [c1] 1fr [c2];
+        grid-template-rows:
+          [r1] 30px [r2] 1fr [r3];
       }
     }
   }
+}
+
+.infoText {
+  @include wh;
+  @include gridCR(1,2,1,2);
+  @include gridItemPosition(left);
+  padding-left: 0.5rem;
+  color: $TextColor;
+  font-size: 1rem;
+}
+
+.infoNum {
+  @include gridCR(1,2,2,3);
+  @include gridItemPosition(center, center);
+  color: $TextColor;
+  font-size: 2.5rem;
 }

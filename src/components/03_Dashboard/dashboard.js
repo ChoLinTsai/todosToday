@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import style from './dashboard.scss';
-import { Button, Icon } from 'react-materialize';
-
+import {Button, Icon} from 'react-materialize';
 
 export default class Dashboard extends Component {
 
@@ -12,11 +11,10 @@ export default class Dashboard extends Component {
         userId: null
       },
       isDisplay: false,
-      numberedFollower: null,
+      numberedFollower: null
     };
 
   }
-
 
   shouldComponentUpdate(nextProps) {
 
@@ -40,23 +38,20 @@ export default class Dashboard extends Component {
     .then(res => res.json())
     .then(data => ({
 
-        userId: data.login,
-        userName: data.name,
-        userAvatar: data.avatar_url,
-        userLocation: data.location,
-        userRepos: data.public_repos,
-        userGists: data.public_gists,
-        userFollowers: data.followers
+      userId: data.login,
+      userName: data.name,
+      userAvatar: data.avatar_url,
+      userLocation: data.location,
+      userRepos: data.public_repos,
+      userGists: data.public_gists,
+      userFollowers: data.followers
 
-      })
-    )
-    .then(userProfile =>
-      this.setState({
-        userProfile,
-        userLogin: userProfile.userId,
-        isDisplay: true,
-      })
-    )
+    }))
+    .then(userProfile => this.setState({
+      userProfile,
+      userLogin: userProfile.userId,
+      isDisplay: true
+    }))
     .catch(error => console.log(`We got errors : ${error}`))
 
   }
@@ -82,36 +77,42 @@ export default class Dashboard extends Component {
     } = this.state.userProfile;
 
     const divDisplay = this.state.isDisplay
-      ? {display: 'grid'}
-      : {display: 'none'}
-
-    // const followersWithCommas = (x) => {
-    //   return  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    // }
+      ? {
+        display: 'grid'
+      }
+      : {
+        display: 'none'
+      }
 
     let commaedFollowers = !isNaN(userFollowers)
       ? commaedFollowers = this.beCommaed(userFollowers)
-      : null
+      : null;
 
-    return (
+    let commaedRepos = !isNaN(userRepos)
+      ? commaedRepos = this.beCommaed(userRepos)
+      : null;
+
+    let commaedGists = !isNaN(userGists)
+      ? commaedGists = this.beCommaed(userGists)
+      : null;
+
+    return  (
       <section className={style.dashboardPanel}>
         <div style={divDisplay}>
 
           <div className={style.userUpper}>
 
-            <img src={userAvatar} className={style.userPic} />
+            <img src={userAvatar} className={style.userPic}/>
 
             <div className={style.userInfo}>
               <p className={style.userName}>{userName}</p>
               <p className={style.userId}>{userId}</p>
 
               <div className={style.location}>
-                <Icon small
-                      className={style.locationIcon}>
-                      location_on
+                <Icon small="small" className={style.locationIcon}>
+                  location_on
                 </Icon>
                 <p className={style.userLocation}>
-
                   {userLocation}
                 </p>
               </div>
@@ -122,19 +123,24 @@ export default class Dashboard extends Component {
           <div className={style.githubInfo}>
 
             <div className={style.followersPanel}>
-              <p className={style.followersText}>Followers</p>
-              <p className={style.followersNum}>{commaedFollowers}</p>
+              <p className={style.infoText}>Followers</p>
+              <p className={style.infoNum}>{commaedFollowers}</p>
             </div>
 
-            <p className={style.repos}>Repos : {userRepos}</p>
-            <p className={style.gist}>Gists : {userGists}</p>
+            <div className={style.reposPanel}>
+              <p className={style.infoText}>Repos</p>
+              <p className={style.infoNum}>{commaedRepos}</p>
+            </div>
+
+            <div className={style.gistsPanel}>
+              <p className={style.infoText}>Gists</p>
+              <p className={style.infoNum}>{commaedGists}</p>
+            </div>
 
           </div>
 
-
         </div>
       </section>
-
     );
   }
 }
