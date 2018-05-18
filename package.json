@@ -11,8 +11,8 @@
   "author": "Cho Lin Tsai",
   "license": "MIT",
   "dependencies": {
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1"
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome": "^1.1.5",

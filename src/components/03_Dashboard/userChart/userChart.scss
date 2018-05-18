@@ -1,0 +1,35 @@
+.chartPanel {
+  @include wh('max');
+  @include gridCR(1,2,5,6);
+  background: mistyrose;
+  display: grid;
+  grid-template-columns:
+    [c1] 1fr [c2] 1fr [c3];
+  grid-template-rows:
+    [r1] 1fr [r2];
+
+  .repoDetails {
+    @include wh('max');
+    @include gridCR(1,2,1,2);
+    overflow-y: scroll;
+
+    .unorderedList {
+      @include wh('max');
+      background: #fff;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(30, 100px);
+
+      .listItem {
+        @include wh('max');
+        color: #333;
+        background: #fff59d;
+        display: grid;
+        grid-template-columns:
+          [c1] 1fr [c2] 100px [c3];
+        grid-template-rows:
+          [r1] 1fr [r2];
+      }
+    }
+  }
+}

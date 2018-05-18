@@ -12,32 +12,26 @@ export default class Users extends Component {
     }
   }
 
-
   componentDidMount() {
-
     this.fetchGithubUsers();
-
   }
-
-
-
 
   fetchGithubUsers() {
 
     fetch('https://api.github.com/users')
-    .then(res => res.json())
-    .then(data => data.map( data => ({
-        keyId: data.id,
-        userLogin: data.login,
-        userUrl: data.url
-      })
-    ))
-    .then( userInfo =>
-      this.setState({
-        userInfo
-      })
-    )
-    .catch(err => console.log(`We got errors : ${err}`))
+      .then(res => res.json())
+      .then(data => data.map( data => ({
+          keyId: data.id,
+          userLogin: data.login,
+          userUrl: data.url
+        })
+      ))
+      .then( userInfo =>
+        this.setState({
+          userInfo
+        })
+      )
+      .catch(err => console.log(`We got errors : ${err}`))
 
   }
 
@@ -45,11 +39,10 @@ export default class Users extends Component {
     this.props.clickEvent(userUrl, userLogin);
   }
 
-
   render() {
 
-    const getUserIdAry = this.state.userInfo.map( data => data.keyId )
-    const getUserInfo = this.state.userInfo.map( info => {
+    const getUserIdAry = this.state.userInfo.map(data => data.keyId)
+    const getUserInfo = this.state.userInfo.map(info => {
 
       return  <li key={info.keyId}
                   className={style.userDetail}>
@@ -58,11 +51,13 @@ export default class Users extends Component {
 
                   <h2>{getUserIdAry.indexOf(info.keyId) + 1}</h2>
                   <p className={style.userName}>{info.userLogin}</p>
+
                   <Button
                     waves='light'
                     className={style.details}
-                    onClick={() => this.onClickUser(info.userUrl, info.userLogin)}>
-
+                    onClick={() =>
+                      this.onClickUser(info.userUrl, info.userLogin)
+                    }>
                     Details
                   </Button>
 

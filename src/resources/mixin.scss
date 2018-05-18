@@ -8,15 +8,15 @@
 
 /* width height mixin */
 @mixin wh($type:normal, $width:100%, $height:100%) {
-	@if $type == "max" {
+	@if $type == 'max' {
 		max-width: $width;
 		max-height: $height;
 	} @else
-	if $type == "min" {
+	if $type == 'min' {
 		min-width: $width;
 		min-height: $height;
 	} @else
-	if $type == "normal" {
+	if $type == 'normal' {
 		width: $width;
 		height: $height;
 	}
