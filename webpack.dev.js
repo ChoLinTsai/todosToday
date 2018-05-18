@@ -6,7 +6,7 @@ const cssDev = [
     loader: 'css-loader',
     options: {
       modules: true,
-      importLoaders: 2,
+      importLoaders: 5,
       minimize: true
     }
   },

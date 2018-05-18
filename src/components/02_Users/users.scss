@@ -9,10 +9,10 @@
     background: #fdfdfd;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(30, 150px);
+    grid-template-rows: repeat(30, 125px);
 
     .userDetail {
-      @include wh('max', 100%, 150px);
+      @include wh('max', 100%, 125px);
       background: #fdfdfd;
       display: grid;
       grid-template-columns:
@@ -25,18 +25,18 @@
         @include gridCR(1,2,1,2);
         display: grid;
         grid-template-columns:
-          [c1] 100px [c2] 1fr [c3] 150px [c4];
+          [c1] 80px [c2] 1fr [c3] 130px [c4];
         grid-template-rows:
           [r1] 1fr [r2];
 
         h2 {
-          font-size: 3em;
+          font-size: 2.5em;
           @include gridCR(1,2,1,2);
           @include gridItemPosition;
         }
 
         .userName {
-          font-size: 2em;
+          font-size: 1.5em;
           @include gridCR(2,3,1,2);
           @include gridItemPosition;
         }
@@ -46,10 +46,8 @@
           width: 100px;
           height: 35px;
           font-size: 0.5em;
-          background: #25A69A;
-          color: #fdfdfd;
           @include gridCR(3,4,1,2);
-          @include gridItemPosition;
+          @include gridItemPosition(left);
           @include flex;
           &:focus {
             outline: none;

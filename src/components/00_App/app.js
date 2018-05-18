@@ -26,10 +26,12 @@ export default class App extends Component {
       <main className={style.mainStyle}>
         <Sidebar />
 
-        <Users clickEvent={(userUrl, userLogin) =>
-          this.onClick(userUrl, userLogin)} />
+        <Users clickEvent={
+          (userUrl, userLogin) => this.onClick(userUrl, userLogin)
+        }/>
 
-        <Dashboard userUrl={this.state.userUrl} userLogin={this.state.userLogin}/>
+        <Dashboard
+          userUrl={this.state.userUrl} userLogin={this.state.userLogin} />
       </main>
     )
   }
