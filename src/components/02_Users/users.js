@@ -36,6 +36,7 @@ export default class Users extends Component {
   }
 
   onClickUser(userUrl, userLogin) {
+    console.log('============ users details btn clicked');
     this.props.clickEvent(userUrl, userLogin);
   }
 

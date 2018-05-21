@@ -89,6 +89,11 @@ export default class Dashboard extends Component {
       ? commaedGists = this.beCommaed(userGists)
       : null;
 
+
+    // console.log('this is dashboard props',this.props);
+    // console.log('          ');
+    // console.log('          ');
+
     return  (
       <section className={style.dashboardPanel}>
         <div style={divDisplay} className={style.divDisplay}>
