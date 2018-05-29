@@ -1,5 +1,12 @@
 # 2018/5/21
 
+Project fetchGithub finished
+
+
+
+
+# 2018/5/21
+
 Started to work on PieChart component
 
 Also I figured out how to pass langUrl props to PieChart component.

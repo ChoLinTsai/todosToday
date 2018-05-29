@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import style from './userChart.scss';
+import style from './userRepoList.scss';
 import { Icon } from 'react-materialize';
 import PieChart from '../pieChart/pieChart';
 
-export default class UserChart extends Component {
+export default class UserRepoList extends Component {
 
   constructor(props) {
     super(props);
@@ -12,15 +12,23 @@ export default class UserChart extends Component {
       reposInfo: [],
       isFetched: false,
       isLangUrlChanged: false,
+      isNewUser: false,
     };
   }
 
-  static getDerivedStateFromProps(newProps) {
+  static getDerivedStateFromProps(newProps, oldState) {
+
+    let checkIsNewUser = newProps.userID !== oldState.userID
+      ? true
+      : false;
 
     return {
       userID: newProps.userID,
       userReposUrl: newProps.userReposUrl,
+      isNewUser: checkIsNewUser,
+      isFetched: false,
     }
+
   }
 
   shouldComponentUpdate(newProps, newState) {
@@ -47,7 +55,6 @@ export default class UserChart extends Component {
   }
 
   componentDidUpdate(oldProps, oldState) {
-
     if (this.state.isLangUrlChanged) {
       this.setState({
         isLangUrlChanged: false,
@@ -55,11 +62,13 @@ export default class UserChart extends Component {
       return ;
     }
 
-    if (oldState.isFetched !== true) {
+
+    if (oldState.userID !== this.state.userID ||
+          this.state.isFetched !== true) {
       this.fetchUser();
     }
-
   }
+
 
   fetchUser() {
     fetch(this.state.userReposUrl)
@@ -76,7 +85,7 @@ export default class UserChart extends Component {
       .then(reposInfo => {
           this.setState({
             reposInfo: reposInfo,
-            isFetched: !this.state.isFetched,
+            isFetched: true,
           })
         }
 
@@ -87,25 +96,19 @@ export default class UserChart extends Component {
 
 
   passUrlToChart(languageUrl, repoName) {
-
     if (repoName === this.state.currentRepoName) {
       return ;
     }
-
-
     this.setState({
       languageUrl: languageUrl,
       currentRepoName: repoName,
       isLangUrlChanged: true,
-      isFetched: !this.state.isFetched,
     });
-
   }
 
   render() {
 
     const itemLists = this.state.reposInfo.map( i => {
-
       return <li key={i.keyID}
                  className={style.listItem}
                  onClick={() => this.passUrlToChart(i.languageUrl, i.repoName)} >
@@ -134,7 +137,6 @@ export default class UserChart extends Component {
 
                   </div>
 
-
              </li>
     });
 
@@ -149,13 +151,17 @@ export default class UserChart extends Component {
       <div className={style.chartPanel}>
 
         <div className={style.repoDetails}>
-          <ul style={ulGridTempRows} className={style.unorderedList}>
-            {itemLists}
+          <ul style={ulGridTempRows}
+              className={style.unorderedList}>
+              {itemLists}
           </ul>
         </div>
 
 
-        <PieChart langUrl={this.state.languageUrl} />
+        <PieChart langUrl={this.state.languageUrl}
+                  isNewUser={this.state.isNewUser}
+                  currentUserName={this.state.userID}
+                  isUserChanged={this.props.isUserChanged}/>
 
       </div>
     );
