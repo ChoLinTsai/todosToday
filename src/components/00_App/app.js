@@ -14,45 +14,23 @@ export default class App extends Component {
     };
   }
 
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('===== this is shouldComponentUpdate');
-  //   console.log('this is nextState', nextState);
-  //   console.log('this is this.state', this.state);
-  //   console.log('          ');
-  //   console.log('          ');
-  //   return true;
-  // }
-  //
-  //
-  // componentDidUpdate(prevProps, oldState) {
-  //   console.log('===== this is componentDidUpdate');
-  //   console.log('===== this is prevState', oldState);
-  //   console.log('===== this is this.state',this.state);
-  //   console.log('          ');
-  //   console.log('          ');
-  //
-  //   this.setState({
-  //     isUrlSent: !this.state.isUrlSent,
-  //   });
-  // }
-
-
-
-
-
   onClick(userUrl, userLogin) {
+
+    let isUserChanged = userLogin !== this.state.userLogin
+      ? true
+      : false
+
     this.setState({
       userUrl: userUrl,
       userLogin: userLogin,
-      isUrlSent: true,
+      isUserChanged: isUserChanged,
     });
-    // console.log('onClick event clicked');
   }
 
   render() {
     return (
       <main className={style.mainStyle}>
+
         <Sidebar />
 
         <Users clickEvent={
@@ -61,7 +39,9 @@ export default class App extends Component {
 
         <Dashboard
           userUrl={this.state.userUrl} userLogin={this.state.userLogin}
-          sentUrlToChart={this.state.isUrlSent} />
+          userChangedTo={this.state.userLogin}
+          isUserChanged={this.state.isUserChanged} />
+
       </main>
     )
   }

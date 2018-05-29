@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import style from './dashboard.scss';
 import { Icon } from 'react-materialize';
-import UserChart from './userChart/userChart';
+import UserRepoList from './userRepoList/userRepoList';
 
 export default class Dashboard extends Component {
 
@@ -16,9 +16,8 @@ export default class Dashboard extends Component {
 
   }
 
-  shouldComponentUpdate(nextProps) {
-
-    if (nextProps.userLogin !== this.state.userProfile.userId) {
+  shouldComponentUpdate(newProps, newState) {
+    if (newProps.userLogin !== this.state.userProfile.userId) {
       return true;
     } else {
       return false;
@@ -26,8 +25,11 @@ export default class Dashboard extends Component {
 
   }
 
-  componentDidUpdate() {
-    this.fetchUser()
+  componentDidUpdate(oldProps, oldState) {
+
+    if (this.props.userLogin !== this.state.userProfile.userId) {
+      this.fetchUser()
+    }
   }
 
   fetchUser() {
@@ -49,7 +51,6 @@ export default class Dashboard extends Component {
       .then(userProfile =>
           this.setState({
             userProfile,
-            userLogin: userProfile.userId,
             isDisplay: true,
           })
       )
@@ -88,11 +89,6 @@ export default class Dashboard extends Component {
     let commaedGists = !isNaN(userGists)
       ? commaedGists = this.beCommaed(userGists)
       : null;
-
-
-    // console.log('this is dashboard props',this.props);
-    // console.log('          ');
-    // console.log('          ');
 
     return  (
       <section className={style.dashboardPanel}>
@@ -136,9 +132,11 @@ export default class Dashboard extends Component {
             </div>
           </div>
 
-          <UserChart
+          <UserRepoList
             userID={this.state.userProfile.userId}
             userReposUrl={this.state.userProfile.userReposUrl}
+            userChangedTo={this.props.userChangedTo}
+            isUserChanged={this.props.isUserChanged}
           />
         </div>
       </section>

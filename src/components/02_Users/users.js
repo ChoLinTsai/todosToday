@@ -36,15 +36,14 @@ export default class Users extends Component {
   }
 
   onClickUser(userUrl, userLogin) {
-    console.log('============ users details btn clicked');
     this.props.clickEvent(userUrl, userLogin);
   }
 
   render() {
 
     const getUserIdAry = this.state.userInfo.map(data => data.keyId)
-    const getUserInfo = this.state.userInfo.map(info => {
 
+    const getUserInfo = this.state.userInfo.map(info => {
       return  <li key={info.keyId}
                   className={style.userDetail}>
 

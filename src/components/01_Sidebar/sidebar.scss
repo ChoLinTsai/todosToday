@@ -10,8 +10,7 @@ $iconColor: #f4f4f4;
   grid-template-rows:
     [r1] 150px [r2] 400px [r3] 150px [r4];
   .sidebarFace {
-    @include wh('normal', 100px, 100px);
-    @include bgimg('./img/gal.jpg', no-repeat, center, top);
+    @include wh('normal', 120px, 120px);
     @include gridItemPosition();
     margin: 0;
     padding: 0;

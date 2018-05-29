@@ -33,7 +33,7 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'assets/'
+              outputPath: 'assets/',
             }
           },
           {
@@ -74,13 +74,16 @@ module.exports = {
   devServer: {
     stats: "errors-only",
   },
+  performance: {
+    hints: false
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: './index.html'
     }),
     new ExtractTextPlugin({
-      filename: './css/[name].css',
+      filename: './css/main.css',
       disable: !isProd,
       allChunks: true
     })
