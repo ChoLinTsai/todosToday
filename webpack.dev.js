@@ -5,8 +5,8 @@ const cssDev = [
   {
     loader: 'css-loader',
     options: {
-      modules: true,
-      importLoaders: 5,
+      modules: false,
+      importLoaders: 6,
       minimize: true
     }
   },

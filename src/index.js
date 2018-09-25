@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import style from './index.scss';
-import App from './components/00_App/app';
+import './index.scss';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button } from 'reactstrap';
 
 class Index extends Component {
   render() {
     return (
-      <div className={style.indexStyle}>
-        <App />
+      <div className="indexStyle">
+        <h1>Hello</h1>
+        <Button color="danger">Danger</Button>
+        <Button color="danger">Danger!</Button>
       </div>
     )
   }
