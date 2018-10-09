@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import './app.scss'
+import React, { Component } from "react";
+import "./app.scss";
 
-import DatePanel from '../Date/DatePanel';
-import Content from '../Content/Content';
-import Todos from '../Todos/Todos';
+import DatePanel from "../Date/DatePanel";
+import Content from "../Content/Content";
+import Todos from "../Todos/Todos";
 
 export default class App extends Component {
   render() {
@@ -13,6 +13,6 @@ export default class App extends Component {
         <Content />
         <Todos />
       </div>
-    )
+    );
   }
 }

@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import './content.scss';
+import React, { Component } from "react";
+import "./content.scss";
 
 export default class Content extends Component {
   render() {
@@ -8,7 +8,10 @@ export default class Content extends Component {
         <div className="leftPanel">
           <p className="city">台北</p>
           <p className="weather">多雲</p>
-          <p className="temp">23<span>&deg;</span>c</p>
+          <p className="temp">
+            23
+            <span>&deg;</span>c
+          </p>
         </div>
         <div className="rightPanel">
           <p className="windDir">風向 : 東北</p>
@@ -16,6 +19,6 @@ export default class Content extends Component {
           <p className="moisture">濕度 : 60%</p>
         </div>
       </div>
-    )
+    );
   }
 }
