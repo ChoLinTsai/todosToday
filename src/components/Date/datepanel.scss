@@ -1,0 +1,21 @@
+.datePanel {
+  width: 100%;
+  height: 100px;
+  @include flex(space-between, center);
+
+  .today {
+    font-size: 36px;
+    font-weight: bold;
+    color: blue;
+  }
+
+  .prevDate,
+  .nextDate {
+    margin: 0;
+    width: 64px;
+    height: 64px;
+    font-size: 42px;
+    font-weight: 900;
+    @include flex;
+  }
+}
