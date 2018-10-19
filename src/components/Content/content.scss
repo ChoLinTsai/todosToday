@@ -10,6 +10,7 @@
   }
 
   .leftPanel {
+    margin-right: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -20,19 +21,19 @@
     }
 
     .city {
-      font-size: 40px;
+      font-size: 36px;
       @include gridCR(1, 2, 1, 2);
       @include gridItemPosition(end, end);
     }
 
     .weather {
-      font-size: 30px;
+      font-size: 24px;
       @include gridCR(1, 2, 2, 3);
       @include gridItemPosition(end, start);
     }
 
     .temp {
-      font-size: 58px;
+      font-size: 50px;
       @include gridCR(2, 3, 1, 3);
       @include gridItemPosition(start, center);
     }
