@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import TodoList from './TodoList';
+import DoneList from './DoneList';
 import "./todos.scss";
 import {
   Button,
@@ -8,54 +10,13 @@ import {
   Input
 } from "reactstrap";
 
-const TodoList = props => (
-  <ul className="todoList">
-    {props.items.map((item, index) => (
-      <li key={index}>
-        <div>
-          <div className="taskName" style={props.doneStyle}>
-            {item}
-          </div>
-        </div>
-        <div>
-          <Button onClick={() => props.doneItem(item)} color="success" size="sm">
-            Done
-          </Button>
-          <Button onClick={() => props.removeItem(item)} color="danger" size="sm">
-            Delete
-          </Button>
-        </div>
-      </li>
-    ))}
-  </ul>
-);
-
-const DoneList = props => (
-  <ul className="doneList">
-    {console.log(props)}
-    {props.done.map((item, index) => (
-      <li key={index}>
-        <div>
-          <div className="taskName" style={props.doneStyle}>
-            {item}
-          </div>
-        </div>
-        <div>
-          <Button onClick={() => props.doneItem(item)} color="success" size="sm">
-            Done
-          </Button>
-        </div>
-      </li>
-    ))}
-  </ul>
-)
 
 export default class Todos extends Component {
   constructor(props) {
     super(props);
     this.state = {
       task: "",
-      items: [[],['123123']],
+      items: [[],[]],
       done: false,
       doneStyle: "none"
     };
@@ -119,7 +80,6 @@ export default class Todos extends Component {
   }
 
   removeItem(taskName) {
-    console.log(123, this.state.items[0].filter(el => el !== taskName))
     this.setState(
       {
         items: [
@@ -132,9 +92,6 @@ export default class Todos extends Component {
   }
 
   render() {
-    const doneItem = {
-      textDecoration: this.state.doneStyle
-    };
 
     return (
       <div className="todoPanel">
@@ -156,13 +113,11 @@ export default class Todos extends Component {
           doneItem={(item) => this.doneItem(item)}
           items={this.state.items[0]}
           removeItem={(name) => this.removeItem(name)}
-          doneStyle={doneItem}
         />
 
         <DoneList
           done={this.state.items[1]}
           doneItem={(item) => this.doneItem(item)}
-
         />
       </div>
     );
