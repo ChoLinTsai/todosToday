@@ -1,10 +1,12 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const isProd = process.env.NODE_ENV === 'production';
 const cssDev = require('./webpack.dev.js');
 const cssProd = require('./webpack.prod.js');
 const cssConfig = isProd ? cssProd : cssDev;
+const myEnv = require('dotenv').config();
 
 
 module.exports = {
@@ -86,7 +88,10 @@ module.exports = {
       filename: './css/main.css',
       disable: !isProd,
       allChunks: true
-    })
+    }),
+    new webpack.DefinePlugin({
+      myAPI: JSON.stringify(myEnv.parsed.SECRET_KEY)
+    }),
   ]
 }
 
