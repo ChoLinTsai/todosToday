@@ -29,18 +29,12 @@ export default class DatePanel extends Component {
   }
 
   clickChange(num) {
-    if (num > 0)
-      return this.setState({
-        startDate: this.state.startDate.add(num, "d")
-      });
-    if (num < 0)
-      return this.setState({
-        startDate: this.state.startDate.add(num, "d")
-      });
+    this.setState({
+      startDate: this.state.startDate.add(num, "d")
+    });
   }
 
   render() {
-    console.log(888, this.state.startDate);
     return (
       <div className="datePanel">
         <Button
