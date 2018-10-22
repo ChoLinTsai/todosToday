@@ -7,15 +7,16 @@
     font-size: 26px;
     font-weight: bold;
     color: blue;
+
+    input.dateInput {
+      text-align: center;
+    }
   }
 
   .prevDate,
   .nextDate {
-    margin: 0;
-    width: 64px;
-    height: 64px;
-    font-size: 42px;
-    font-weight: 900;
+    margin: 10px;
+    width: 100px;
     @include flex;
   }
 }
