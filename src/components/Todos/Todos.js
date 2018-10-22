@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import TodoList from './TodoList';
-import DoneList from './DoneList';
+import TodoList from "./TodoList";
+import DoneList from "./DoneList";
 import "./todos.scss";
 import {
   Button,
@@ -10,13 +10,12 @@ import {
   Input
 } from "reactstrap";
 
-
 export default class Todos extends Component {
   constructor(props) {
     super(props);
     this.state = {
       task: "",
-      items: [[],[]],
+      items: [[], []],
       done: false,
       doneStyle: "none"
     };
@@ -27,16 +26,8 @@ export default class Todos extends Component {
     let getTasks = localStorage.getItem(getTimeStamp);
     let parsedTasks = JSON.parse(getTasks);
     this.setState({
-      items: parsedTasks || [[],[]]
+      items: parsedTasks || [[], []]
     });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.done !== this.state.done) {
-      this.setState({
-        doneStyle: this.state.done ? "line-through" : "none"
-      });
-    }
   }
 
   onChange(e) {
@@ -50,7 +41,7 @@ export default class Todos extends Component {
     let yyyy = today.getFullYear();
     let MM = today.getMonth();
     let dd = today.getDate();
-    return `${yyyy}${MM + 1}${dd}`;
+    return `${yyyy}/${MM + 1}/${dd}`;
   }
 
   saveToLocal() {
@@ -60,21 +51,29 @@ export default class Todos extends Component {
   }
 
   addTask() {
-    this.setState({
+    this.setState(
+      {
         task: "",
-        items: [[...this.state.items[0], this.state.task],[...this.state.items[1]]],
-    },
-    () => this.saveToLocal()
+        items: [
+          [...this.state.items[0], this.state.task],
+          [...this.state.items[1]]
+        ]
+      },
+      () => this.saveToLocal()
     );
   }
 
   doneItem(item) {
-    this.setState({
-      items: [
-        this.state.items[0].filter(el => el !== item),
-        [...this.state.items[1],this.state.items[0].filter(el => el === item)],
-      ]
-    },
+    this.setState(
+      {
+        items: [
+          this.state.items[0].filter(el => el !== item),
+          [
+            ...this.state.items[1],
+            this.state.items[0].filter(el => el === item)
+          ]
+        ]
+      },
       () => this.saveToLocal()
     );
   }
@@ -92,7 +91,6 @@ export default class Todos extends Component {
   }
 
   render() {
-
     return (
       <div className="todoPanel">
         <div className="addSection">
@@ -105,19 +103,17 @@ export default class Todos extends Component {
               ADD
             </Button>
           </InputGroup>
-
-          
         </div>
 
         <TodoList
-          doneItem={(item) => this.doneItem(item)}
+          doneItem={item => this.doneItem(item)}
           items={this.state.items[0]}
-          removeItem={(name) => this.removeItem(name)}
+          removeItem={name => this.removeItem(name)}
         />
 
         <DoneList
           done={this.state.items[1]}
-          doneItem={(item) => this.doneItem(item)}
+          doneItem={item => this.doneItem(item)}
         />
       </div>
     );
