@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import TodoList from "./TodoList";
+import DoneList from "./DoneList";
 import "./todos.scss";
 import {
   Button,
@@ -8,54 +10,73 @@ import {
   Input
 } from "reactstrap";
 
-const Lists = props => (
-  <ul className="taskList">
-    {props.items.map((item, index) => (
-      <li key={index}>
-        <div>
-          <div className="taskName" style={props.doneStyle}>
-            {item}
-          </div>
-        </div>
-        <div>
-          <Button color="success" onClick={() => props.doneItem(item)}>
-            Done
-          </Button>
-          <Button color="danger" onClick={() => props.removeItem(item)}>
-            Delete
-          </Button>
-        </div>
-      </li>
-    ))}
-  </ul>
-);
-
 export default class Todos extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      initDate: '',
+      currentDate: '',
       task: "",
-      items: [],
-      done: false,
-      doneStyle: "none"
+      items: [[], []],
+      isInitUpdate: true,
+      needRender: false,
     };
   }
 
   componentDidMount() {
-    let getTimeStamp = this.getTime();
+    let getTimeStamp = this.props.date.format('YYYY/MM/DD');
     let getTasks = localStorage.getItem(getTimeStamp);
     let parsedTasks = JSON.parse(getTasks);
     this.setState({
-      items: parsedTasks || []
+      initDate: getTimeStamp,
+      items: parsedTasks || [[], []]
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.done !== this.state.done) {
+  
+
+  shouldComponentUpdate(newProps, newState) {
+
+    let newDate = newProps.date.format('YYYY/MM/DD');
+    // only invoke once when mounting
+    if(newDate === newState.initDate) return true;
+    
+    // check if newProps.date !== this.state.currentDate
+    if(newDate !== this.state.currentDate) return true;
+
+    return true;
+  }
+
+  componentDidUpdate(oldProps,oldState) {
+    
+    // only invoke once after mounting 
+    if(this.state.isInitUpdate) {
+      let getLocalKeys = Object.keys(localStorage);
+      let getDate = this.props.date.format('YYYY/MM/DD');
+      let filterDate = getLocalKeys.filter( i => i === getDate);
+      let getTasks = localStorage.getItem(getDate);
+      let parsedTasks = JSON.parse(getTasks);
+
       this.setState({
-        doneStyle: this.state.done ? "line-through" : "none"
-      });
+        currentDate: getDate,
+        items: filterDate.length > 0 ? parsedTasks : [[], []],
+        isInitUpdate: false
+      })
     }
+
+    if(this.props.date.format('YYYY/MM/DD') !== oldState.currentDate) {
+      let getLocalKeys = Object.keys(localStorage);
+      let getDate = this.props.date.format('YYYY/MM/DD');
+      let filterDate = getLocalKeys.filter( i => i === getDate);
+      let getTasks = localStorage.getItem(getDate);
+      let parsedTasks = JSON.parse(getTasks);
+
+      this.setState({
+        currentDate: getDate,
+        items: filterDate.length > 0 ? parsedTasks : [[], []],
+      })
+    }
+
   }
 
   onChange(e) {
@@ -64,16 +85,8 @@ export default class Todos extends Component {
     });
   }
 
-  getTime() {
-    let today = new Date();
-    let yyyy = today.getFullYear();
-    let MM = today.getMonth();
-    let dd = today.getDate();
-    return `${yyyy}${MM + 1}${dd}`;
-  }
-
   saveToLocal() {
-    let getTimeStamp = this.getTime();
+    let getTimeStamp = this.props.date.format('YYYY/MM/DD');
     let dataToSave = JSON.stringify(this.state.items);
     localStorage.setItem(getTimeStamp, dataToSave);
   }
@@ -83,32 +96,43 @@ export default class Todos extends Component {
     this.setState(
       {
         task: "",
-        items: [...this.state.items, this.state.task]
+        items: [
+          [...this.state.items[0], this.state.task],
+          [...this.state.items[1]]
+        ]
       },
       () => this.saveToLocal()
     );
   }
 
-  doneItem() {
-    this.setState({
-      done: !this.state.done
-    });
-  }
-
-  removeItem(taskName) {
+  doneItem(item) {
     this.setState(
       {
-        items: this.state.items.filter(el => el !== taskName)
+        items: [
+          this.state.items[0].filter(el => el !== item),
+          [
+            ...this.state.items[1],
+            this.state.items[0].filter(el => el === item)
+          ]
+        ]
+      },
+      () => this.saveToLocal()
+    );
+  }
+
+  deleteItem(item) {
+    this.setState(
+      {
+        items: [
+          this.state.items[0].filter(el => el !== item),
+          [...this.state.items[1]]
+        ]
       },
       () => this.saveToLocal()
     );
   }
 
   render() {
-    const doneItem = {
-      textDecoration: this.state.doneStyle
-    };
-
     return (
       <div className="todoPanel">
         <div className="addSection">
@@ -117,17 +141,21 @@ export default class Todos extends Component {
               <InputGroupText>Add task</InputGroupText>
             </InputGroupAddon>
             <Input value={this.state.task} onChange={e => this.onChange(e)} />
-            <Button color="primary" onClick={() => this.addTask()}>
+            <Button color="primary" onClick={(e) => this.addTask(e)}>
               ADD
             </Button>
           </InputGroup>
         </div>
 
-        <Lists
-          items={this.state.items}
-          doneItem={() => this.doneItem()}
-          removeItem={name => this.removeItem(name)}
-          doneStyle={doneItem}
+        <TodoList
+          doneItem={item => this.doneItem(item)}
+          items={this.state.items[0]}
+          deleteItem={item => this.deleteItem(item)}
+        />
+
+        <DoneList
+          done={this.state.items[1]}
+          doneItem={item => this.doneItem(item)}
         />
       </div>
     );

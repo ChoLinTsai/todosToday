@@ -1,32 +1,55 @@
 .todoPanel {
   width: 100%;
-  height: 450px;
+  height: 70%;
   background: lightgreen;
   @include flex;
   flex-direction: column;
 
+
   .addSection {
     padding: 10px 16px;
     width: 100%;
-    height: 20%;
+    height: 10%;
     background: lightyellow;
     @include flex;
   }
 
-  .taskList {
+  .todoList {
     margin: 0;
     width: 100%;
-    height: 80%;
+    height: 50%;
     background: lightblue;
     overflow-y: scroll;
     li {
       margin: 5px 0;
       padding: 10px 16px;
       width: 100%;
-      height: 80px;
+      height: 40px;
       list-style: none;
       background: pink;
       @include flex(space-between, center);
+      .btn-success {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .doneList {
+    margin: 0;
+    width: 100%;
+    height: 50%;
+    background: mistyrose;
+    overflow-y: scroll;
+    li {
+      margin: 5px 0;
+      padding: 10px 16px;
+      width: 100%;
+      height: 40px;
+      list-style: none;
+      @include flex(space-between, center);
+      .btn-success {
+        margin-right: 5px;
+      }
     }
   }
 }

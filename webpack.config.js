@@ -1,15 +1,16 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const isProd = process.env.NODE_ENV === 'production';
-const cssDev = require('./webpack.dev.js');
-const cssProd = require('./webpack.prod.js');
+const isProd = process.env.NODE_ENV === "production";
+const cssDev = require("./webpack.dev.js");
+const cssProd = require("./webpack.prod.js");
 const cssConfig = isProd ? cssProd : cssDev;
-
+const myEnv = require("dotenv").config();
 
 module.exports = {
   output: {
-    path: path.resolve(__dirname, 'docs/')
+    path: path.resolve(__dirname, "docs/")
   },
   module: {
     rules: [
@@ -18,7 +19,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader'
+            loader: "babel-loader"
           }
         ]
       },
@@ -30,10 +31,10 @@ module.exports = {
         test: /\.(png|jpg|gif|mp4|ogg|svg|woff|woff2|ttf|eot)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[name].[ext]',
-              outputPath: 'assets/',
+              name: "[name].[ext]",
+              outputPath: "assets/"
             }
           },
           {
@@ -45,13 +46,13 @@ module.exports = {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: [
           {
-            loader: 'url-loader',
+            loader: "url-loader",
             options: {
               limit: 10000,
-              mimetype: 'application/font-woff',
-              name: '[name].[ext]',
-              publicPath: './',
-              outputPath: 'fonts/'
+              mimetype: "application/font-woff",
+              name: "[name].[ext]",
+              publicPath: "./",
+              outputPath: "fonts/"
             }
           }
         ]
@@ -60,11 +61,11 @@ module.exports = {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[name].[ext]',
-              publicPath: '../',
-              outputPath: 'fonts/'
+              name: "[name].[ext]",
+              publicPath: "../",
+              outputPath: "fonts/"
             }
           }
         ]
@@ -72,23 +73,25 @@ module.exports = {
     ]
   },
   devServer: {
-    stats: "errors-only",
+    stats: "errors-only"
   },
   performance: {
     hints: false
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: './index.html'
+      template: "./src/index.html",
+      filename: "./index.html"
     }),
     new ExtractTextPlugin({
-      filename: './css/main.css',
+      filename: "./css/main.css",
       disable: !isProd,
       allChunks: true
+    }),
+    new webpack.DefinePlugin({
+      myAPI: JSON.stringify(myEnv.parsed.SECRET_KEY)
     })
   ]
-}
+};
 
-
-console.log(isProd ? 'It is Production' : 'It is Devolopment');
+console.log(isProd ? "It is Production" : "It is Devolopment");
