@@ -3,4 +3,23 @@
   width: 750px;
   height: 100%;
   background: mistyrose;
+
+  .datePanel {
+    width: 100%;
+    height: 10%;
+    @include flex(space-between, center);
+
+    input.dateInput {
+      font-size: 26px;
+      text-align: center;
+    }
+  
+    .prevDate,
+    .nextDate {
+      margin: 10px;
+      width: 100px;
+      @include flex;
+    }
+  }
+  
 }
