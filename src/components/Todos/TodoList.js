@@ -11,10 +11,16 @@ const TodoList = props => (
           </div>
         </div>
         <div>
-          <Button onClick={() => props.doneItem(item)} color="success" size="sm">
+          <Button
+            onClick={() => props.doneItem(item)}
+            color="success"
+            size="sm">
             Done
           </Button>
-          <Button onClick={() => props.removeItem(item)} color="danger" size="sm">
+          <Button
+            onClick={() => props.deleteItem(item)}
+            color="danger"
+            size="sm">
             Delete
           </Button>
         </div>
