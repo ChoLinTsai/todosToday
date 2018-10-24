@@ -33,8 +33,6 @@ export default class Todos extends Component {
     });
   }
 
-  
-
   shouldComponentUpdate(newProps, newState) {
 
     let newDate = newProps.date.format('YYYY/MM/DD');
@@ -48,15 +46,14 @@ export default class Todos extends Component {
   }
 
   componentDidUpdate(oldProps,oldState) {
-    
+    let getLocalKeys = Object.keys(localStorage);
+    let getDate = this.props.date.format('YYYY/MM/DD');
+    let filterDate = getLocalKeys.filter( i => i === getDate);
+    let getTasks = localStorage.getItem(getDate);
+    let parsedTasks = JSON.parse(getTasks);
+
     // only invoke once after mounting 
     if(this.state.isInitUpdate) {
-      let getLocalKeys = Object.keys(localStorage);
-      let getDate = this.props.date.format('YYYY/MM/DD');
-      let filterDate = getLocalKeys.filter( i => i === getDate);
-      let getTasks = localStorage.getItem(getDate);
-      let parsedTasks = JSON.parse(getTasks);
-
       this.setState({
         currentDate: getDate,
         items: filterDate.length > 0 ? parsedTasks : [[], []],
@@ -64,19 +61,13 @@ export default class Todos extends Component {
       })
     }
 
+    // check everytime when this cmp gets a newDate
     if(this.props.date.format('YYYY/MM/DD') !== oldState.currentDate) {
-      let getLocalKeys = Object.keys(localStorage);
-      let getDate = this.props.date.format('YYYY/MM/DD');
-      let filterDate = getLocalKeys.filter( i => i === getDate);
-      let getTasks = localStorage.getItem(getDate);
-      let parsedTasks = JSON.parse(getTasks);
-
       this.setState({
         currentDate: getDate,
         items: filterDate.length > 0 ? parsedTasks : [[], []],
       })
     }
-
   }
 
   onChange(e) {
@@ -141,7 +132,11 @@ export default class Todos extends Component {
               <InputGroupText>Add task</InputGroupText>
             </InputGroupAddon>
             <Input value={this.state.task} onChange={e => this.onChange(e)} />
-            <Button color="primary" onClick={(e) => this.addTask(e)}>
+            <Button
+              className="addBtn"
+              color="primary"
+              onClick={(e) => this.addTask(e)}
+            >
               ADD
             </Button>
           </InputGroup>

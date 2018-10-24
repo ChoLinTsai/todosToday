@@ -12,12 +12,14 @@ const TodoList = props => (
         </div>
         <div>
           <Button
+            outline
             onClick={() => props.doneItem(item)}
-            color="success"
+            color="primary"
             size="sm">
             Done
           </Button>
           <Button
+            outline
             onClick={() => props.deleteItem(item)}
             color="danger"
             size="sm">
