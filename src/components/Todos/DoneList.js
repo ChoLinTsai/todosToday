@@ -12,7 +12,7 @@ const DoneList = props => (
           </div>
         </div>
         <div>
-          <Button color="success" size="sm">
+          <Button outline color="secondary" size="sm" disabled>
             Done
           </Button>
         </div>

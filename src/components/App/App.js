@@ -33,6 +33,7 @@ export default class App extends Component {
       <div className="mainPanel">
         <div className="datePanel">
           <Button
+            outline
             onClick={() => this.clickChange(-1)}
             color="info"
             className="prevDate"
@@ -47,6 +48,7 @@ export default class App extends Component {
             className="dateInput"
           />
           <Button
+            outline
             onClick={() => this.clickChange(1)}
             color="info"
             className="nextDate"
