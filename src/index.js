@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import './index.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import "./index.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-import App from './components/App/App'
-
+import App from "./components/App/App";
 
 class Index extends Component {
   render() {
@@ -12,12 +11,8 @@ class Index extends Component {
       <div className="indexStyle">
         <App />
       </div>
-    )
+    );
   }
 }
 
-
-ReactDOM.render(
-  <Index />,
-  document.getElementById('index')
-)
+ReactDOM.render(<Index />, document.getElementById("index"));

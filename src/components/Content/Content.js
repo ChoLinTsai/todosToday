@@ -1,44 +1,23 @@
 import React, { Component } from "react";
 import "./content.scss";
-import axios from "axios";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { fetchWeather } from "../../actions/weatherAction";
 
-const API_URL_ID = "https://api.openweathermap.org/data/2.5/weather?id=";
-const API_CITY_ID = "1668341";
-const API_KEY = `&APPID=${myAPI}`;
-
-export default class Content extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      location: "",
-      weather: "",
-      temp: "",
-      pressure: "",
-      windSpeed: "",
-      humidity: ""
-    };
-  }
-
+class Content extends Component {
   componentDidMount() {
-    axios.get(`${API_URL_ID}${API_CITY_ID}${API_KEY}`).then(result => {
-      this.setState({
-        location: result.data.name,
-        weather: result.data.weather[0].main,
-        temp: (result.data.main.temp - 273).toFixed(1),
-        pressure: `Pressure : ${result.data.main.pressure}`,
-        windSpeed: `Wind Speed : ${result.data.wind.speed} m/s`,
-        humidity: `Humidity : ${result.data.main.humidity}%`
-      });
-    });
+    this.props.fetchWeather();
   }
 
   render() {
-    const location = this.state.location;
-    const weather = this.state.weather;
-    const temp = this.state.temp;
-    const pressure = this.state.pressure;
-    const windSpeed = this.state.windSpeed;
-    const humidity = this.state.humidity;
+    const {
+      location,
+      weather,
+      temp,
+      pressure,
+      windSpeed,
+      humidity
+    } = this.props.weatherData;
 
     return (
       <div className="weatherContent">
@@ -59,3 +38,17 @@ export default class Content extends Component {
     );
   }
 }
+
+Content.propTypes = {
+  fetchWeather: PropTypes.func.isRequired,
+  weatherData: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  weatherData: state.weatherData
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchWeather }
+)(Content);
