@@ -12,7 +12,11 @@ import { Button } from "reactstrap";
 import Content from "../Content/Content";
 import Todos from "../Todos/Todos";
 
-export default class App extends Component {
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { dateHandleChange } from "./actions/dateAction";
+
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -34,6 +38,7 @@ export default class App extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <Provider store={store}>
         <div className="mainPanel">
@@ -50,7 +55,7 @@ export default class App extends Component {
             <DatePicker
               dateFormat="YYYY/MM/DD"
               selected={this.state.startDate}
-              onChange={date => this.handleChange(date)}
+              onChange={date => this.props.dateHandleChange(date)}
               className="dateInput"
             />
             <Button
@@ -70,3 +75,16 @@ export default class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  dateHandleChange: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  dateChangeHandle: state.dateChangeHandle
+});
+
+export default connect(
+  mapStateToProps,
+  { dateHandleChange }
+)(App);
