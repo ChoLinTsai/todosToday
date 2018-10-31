@@ -1,39 +1,43 @@
 import React, { Component } from "react";
-
 import "./app.scss";
 import "react-datepicker/dist/react-datepicker.css";
-
 import DatePicker from "react-datepicker";
-import moment from "moment";
 import { Button } from "reactstrap";
 
 import Content from "../Content/Content";
 import Todos from "../Todos/Todos";
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
+import store from "../../store";
+import { connect } from "react-redux";
+import { dateHandleChange, dateClickChange } from "../../actions/dateAction";
 
-    this.state = {
-      startDate: moment()
-    };
-  }
+class App extends Component {
+  // constructor(props) {
+  //   super(props);
 
-  handleChange(date) {
-    this.setState({
-      startDate: date
-    });
-  }
+  //   this.state = {
+  //     startDate: moment()
+  //   };
+  // }
 
-  clickChange(num) {
-    this.setState({
-      startDate: this.state.startDate.add(num, "d")
-    });
+  // handleChange(date) {
+  //   this.setState({
+  //     startDate: date
+  //   });
+  // }
+
+  // clickChange(num) {
+  //   this.setState({
+  //     startDate: this.state.startDate.add(num, "d")
+  //   });
+  // }
+
+  shouldComponentUpdate(newProps) {
+    console.log(123, newProps);
+    console.log(456);
   }
 
   render() {
-    console.log(this.props);
-
     return (
       <div className="mainPanel">
         <div className="datePanel">
@@ -48,13 +52,13 @@ export default class App extends Component {
           </Button>
           <DatePicker
             dateFormat="YYYY/MM/DD"
-            selected={this.state.startDate}
-            onChange={date => this.handleChange(date)}
+            selected={this.props.dateData}
+            onChange={date => this.props.dateHandleChange(date)}
             className="dateInput"
           />
           <Button
             outline
-            onClick={() => this.clickChange(1)}
+            onClick={() => this.props.dateClickChange(1)}
             color="info"
             className="nextDate"
             size="md"
@@ -63,8 +67,17 @@ export default class App extends Component {
           </Button>
         </div>
         <Content />
-        <Todos date={this.state.startDate} />
+        {/* <Todos date={this.props.dateData} /> */}
       </div>
     );
   }
 }
+
+const mapSateToProps = state => ({
+  dateData: state.dateData.startDate
+});
+
+export default connect(
+  mapSateToProps,
+  { dateHandleChange, dateClickChange }
+)(App);

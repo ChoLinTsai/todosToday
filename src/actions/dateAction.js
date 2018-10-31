@@ -8,3 +8,12 @@ export const dateHandleChange = date => dispatch => {
     }
   });
 };
+
+export const dateClickChange = number => (dispatch, getState) => {
+  dispatch({
+    type: DATE_ClickChange,
+    payload: {
+      startDate: getState().dateData.startDate.add(number, "d")
+    }
+  });
+};

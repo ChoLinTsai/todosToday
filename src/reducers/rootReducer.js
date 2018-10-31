@@ -4,5 +4,5 @@ import dateReducer from "./dateReducer";
 
 export default combineReducers({
   weatherData: weatherReducer,
-  dateChangeHandle: dateReducer
+  dateData: dateReducer
 });
