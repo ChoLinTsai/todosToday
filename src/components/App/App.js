@@ -7,43 +7,18 @@ import { Button } from "reactstrap";
 import Content from "../Content/Content";
 import Todos from "../Todos/Todos";
 
-import store from "../../store";
 import { connect } from "react-redux";
 import { dateHandleChange, dateClickChange } from "../../actions/dateAction";
 
 class App extends Component {
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     startDate: moment()
-  //   };
-  // }
-
-  // handleChange(date) {
-  //   this.setState({
-  //     startDate: date
-  //   });
-  // }
-
-  // clickChange(num) {
-  //   this.setState({
-  //     startDate: this.state.startDate.add(num, "d")
-  //   });
-  // }
-
-  shouldComponentUpdate(newProps) {
-    console.log(123, newProps);
-    console.log(456);
-  }
-
   render() {
+    console.log(999, this.props.dateData);
     return (
       <div className="mainPanel">
         <div className="datePanel">
           <Button
             outline
-            onClick={() => this.clickChange(-1)}
+            onClick={() => this.props.dateClickChange(-1)}
             color="info"
             className="prevDate"
             size="md"
@@ -73,11 +48,11 @@ class App extends Component {
   }
 }
 
-const mapSateToProps = state => ({
+const mapStateToProps = state => ({
   dateData: state.dateData.startDate
 });
 
 export default connect(
-  mapSateToProps,
+  mapStateToProps,
   { dateHandleChange, dateClickChange }
 )(App);

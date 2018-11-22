@@ -8,12 +8,14 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case DATE_HandlChange:
+      console.log(456, action.payload.startDate);
       return {
         startDate: action.payload.startDate
       };
     case DATE_ClickChange:
-      console.log(1212, state.startDate);
+      console.log(123, action.payload.startDate);
       return {
+        ...state,
         startDate: action.payload.startDate
       };
     default:

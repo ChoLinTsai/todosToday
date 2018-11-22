@@ -48,7 +48,11 @@ const mapStateToProps = state => ({
   weatherData: state.weatherData
 });
 
+const mapDispatchToProps = {
+  fetchWeather
+};
+
 export default connect(
   mapStateToProps,
-  { fetchWeather }
+  mapDispatchToProps
 )(Content);
